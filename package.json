@@ -1,0 +1,21 @@
+{
+  "name": "e-commerce-product-listing-app-mern",
+  "version": "1.0.0",
+  "description": "E-commerce listing cart using MERN stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "npx nodemon backend/server.js",
+    "dev": "set NODE_ENV=development && npx nodemon backend/server.js",
+    "prod": "set NODE_ENV=production && npx nodemon backend/server.js"
+  },
+  "author": "Thusy",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
