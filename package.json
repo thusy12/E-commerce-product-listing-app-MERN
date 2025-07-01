@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx nodemon backend/server.js",
     "dev": "set NODE_ENV=development && npx nodemon backend/server.js",
-    "prod": "set NODE_ENV=production && npx nodemon backend/server.js"
+    "prod": "set NODE_ENV=production && npx nodemon backend/server.js",
+    "seeder": "node backend/utils/seeder.js"
   },
   "author": "Thusy",
   "license": "ISC",
