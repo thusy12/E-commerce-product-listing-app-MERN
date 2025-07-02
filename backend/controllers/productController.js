@@ -7,7 +7,8 @@ const qs = require('qs');
 //Get products = /api/v1/products
 exports.getProducts = async (req,res,next)=>{
     const parsedQuery = qs.parse(req._parsedUrl.query);
-    const apiFeatures = new ApiFeatures(Product.find(), parsedQuery).search().filter();
+    const resultsPerPage = 5;
+    const apiFeatures = new ApiFeatures(Product.find(), parsedQuery).search().filter().paginate(resultsPerPage);
     const products = await apiFeatures.query;
     
     res.status(200).json({
