@@ -118,3 +118,12 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
     sendToken(user, 201, res, "Password reset successfully");
 })
+
+//Get User Profile = /api/v1/myprofile
+exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
