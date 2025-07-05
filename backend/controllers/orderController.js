@@ -99,6 +99,22 @@ exports.updateOrder = catchAsyncError(async(req, res, next) => {
     });
 })
 
+//Admin: delete order = /api/v1/admin/order/:id
+exports.deleteOrder = catchAsyncError(async(req, res, next) => {
+    const order = await Order.findById(req.params.id);
+
+    if(!order){
+        return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 400));
+    }
+
+    await order.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "Order deleted successfully"
+    });
+})
+
 
 async function updateStock(productId, quantity) {
     const product = await Product.findById(productId);
