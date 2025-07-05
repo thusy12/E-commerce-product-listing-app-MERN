@@ -150,3 +150,22 @@ exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
         user
     })
 })
+
+//Update User Profile = /api/v1/profile/update
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: "Profile updated successfully",
+        user
+    });
+});
