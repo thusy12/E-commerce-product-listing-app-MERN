@@ -82,3 +82,53 @@ exports.deleteProduct = async (req,res,next)=>{
         message:"Product deleted successfully"
     })
 }
+
+//Create review = /api/v1/review
+exports.createReview = catchAsyncError(async (req, res, next) => {
+    const { rating, comment, productId } = req.body;
+
+    const review = {
+        user: req.user.id,
+        rating,
+        comment
+    };
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+        return next(new ErrorHandler("Product not found", 404));
+    }
+
+    //Check if user has already reviewed the product
+    const isReviewed = product.reviews.find(review => {
+        return review.user.toString() == req.user.id.toString()
+    });
+
+    if (isReviewed) {
+        //Update the review
+        product.reviews.forEach(rev => {
+            if (rev.user.toString() === req.user.id.toString()) {
+                rev.rating = rating;
+                rev.comment = comment;
+            }
+        });
+    } else {
+        //Create new review
+        product.reviews.push(review);
+        product.numOfReviews = product.reviews.length;
+    }
+
+    //Find the avg of product reviews for ratings field
+    product.ratings = product.reviews.reduce((acc, review) =>{
+        return review.rating + acc;
+    },0) / product.reviews.length;
+
+    product.ratings = isNaN(product.ratings) ? 0 : product.ratings;
+
+    await product.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+        success: true,
+        message: "Review added successfully"
+    });
+})
