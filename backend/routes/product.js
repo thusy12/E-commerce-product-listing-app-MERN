@@ -7,7 +7,8 @@ const {
     updateProduct, 
     deleteProduct, 
     createReview, 
-    getReviews 
+    getReviews, 
+    deleteReview
 } = require('../controllers/productController');
 
 const router = express.Router();
@@ -18,7 +19,9 @@ router.route('/product/:id')
                             .get(getSingleProduct)
                             .put(updateProduct)
                             .delete(deleteProduct);
-router.route('/review').put(isAuthenticatedUser, createReview);
+router.route('/review')
+                        .put(isAuthenticatedUser, createReview)
+                        .delete(isAuthenticatedUser, deleteReview);
 router.route('/reviews').get(getReviews);
 
 //Admin routes
