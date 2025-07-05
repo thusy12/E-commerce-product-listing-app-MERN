@@ -119,11 +119,117 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     sendToken(user, 201, res, "Password reset successfully");
 })
 
+//change password = /api/v1/password/change
+exports.changePassword = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select("+password");
+
+    // Check if old password is correct
+    if(!await user.isValidPassword(req.body.oldPassword)){
+        return next(new ErrorHandler("Old password is incorrect", 401));
+    }
+
+    // Check if new password and confirm password match
+    if(req.body.newPassword !== req.body.confirmPassword){
+        return next(new ErrorHandler("New password and confirm password do not match", 401));
+    }
+
+    // Update password
+    user.password = req.body.newPassword;
+    await user.save();
+
+    res.status(200).json({
+        success: true
+    })
+})
+
 //Get User Profile = /api/v1/myprofile
 exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
     const user = await User.findById(req.user.id);
     res.status(200).json({
         success: true,
         user
+    })
+})
+
+//Update profile = /api/v1/profile/update
+exports.updateProfile = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+    };
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: "Profile updated successfully",
+        user
+    });
+});
+
+//Admin: Get all users = /api/v1/admin/users
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+})
+
+//Admin: Get specific user = /api/v1/admin/user/:id
+exports.getUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with this id: ${req.params.id}`, 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+//Admin: Update user = /api/v1/admin/user/:id
+exports.updateUser = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    };
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with this id: ${req.params.id}`, 404));
+    }
+
+    res.status(200).json({
+        success: true,
+        message: "User updated successfully",
+        user
+    })
+})
+
+//Admin: Delete user = /api/v1/admin/user/:id
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User not found with this id: ${req.params.id}`, 404));
+    }
+
+    await user.deleteOne();
+
+    res.status(200).json({
+        success: true,
+        message: "User deleted successfully"
     })
 })
