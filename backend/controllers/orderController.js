@@ -1,5 +1,6 @@
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 
 //Create new order = /api/v1/order/new
@@ -70,3 +71,37 @@ exports.orders = catchAsyncError(async(req, res, next) => {
         orders
     });
 })
+
+//Admin: update order status = /api/v1/admin/order/:id
+exports.updateOrder = catchAsyncError(async(req, res, next) => {
+    const order = await Order.findById(req.params.id);
+
+    if(!order){
+        return next(new ErrorHandler(`Order not found with this id: ${req.params.id}`, 400));
+    }
+
+    if(order.orderStatus === "Delivered"){
+        return next(new ErrorHandler("Order has been already delivered", 400));
+    }
+
+    order.orderItems.forEach(async(item) => {
+        await updateStock(item.product, item.quantity);
+    });
+
+    order.orderStatus = req.body.orderStatus;
+    order.deliveredAt = Date.now();
+
+    await order.save();
+
+    res.status(200).json({
+        success: true,
+        message: "Order status updated successfully"
+    });
+})
+
+
+async function updateStock(productId, quantity) {
+    const product = await Product.findById(productId);
+    product.stock = product.stock - quantity;
+    product.save({ validateBeforeSave: false });
+}
