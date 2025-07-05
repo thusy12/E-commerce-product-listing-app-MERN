@@ -27,7 +27,8 @@ router.route('/profile/update').put(isAuthenticatedUser, updateProfile);
 
 //Admin routes
 router.route('/admin/users').get(isAuthenticatedUser, authorizedRoles('admin','super admin'), getAllUsers);
-router.route('/admin/user/:id').get(isAuthenticatedUser, authorizedRoles('admin','super admin'), getUser)
+router.route('/admin/user/:id')
+                                .get(isAuthenticatedUser, authorizedRoles('admin','super admin'), getUser)
                                 .put(isAuthenticatedUser, authorizedRoles('admin','super admin'), updateUser)
                                 .delete(isAuthenticatedUser, authorizedRoles('admin','super admin'), deleteUser);
 
