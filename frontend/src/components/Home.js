@@ -1,8 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
+import Metadata from "./layouts/MetaData";
 
 export default function Home(){
     return (
       <Fragment>
+        <Metadata title={'Buy best products'}/>
         <h1 id="products_heading">Latest Products</h1>
 
         <section id="products" className="container mt-5">
