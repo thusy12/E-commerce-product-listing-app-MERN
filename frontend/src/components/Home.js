@@ -23,7 +23,7 @@ export default function Home(){
             position: "bottom-center",
           })
         }
-        dispatch(getProducts(null, currentPage))
+        dispatch(getProducts(null, null, currentPage))
     },[error, dispatch, currentPage])
 
     return (
@@ -39,7 +39,7 @@ export default function Home(){
               <div className="row">
                 {products &&
                   products.map((product) => (
-                    <Product key={product._id} product={product} />
+                    <Product key={product._id} product={product} col={3}/>
                   ))}
               </div>
             </section>
