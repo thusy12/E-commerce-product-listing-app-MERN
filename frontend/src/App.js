@@ -7,6 +7,7 @@ import {HelmetProvider} from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductDetail from './components/product/ProductDetail';
+import ProductSearch from './components/product/ProductSearch';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/product/:id" element={<ProductDetail />}></Route>
+              <Route path="/search/:keyword" element={<ProductSearch/>}></Route>
             </Routes>
           </div>
           <Footer />
