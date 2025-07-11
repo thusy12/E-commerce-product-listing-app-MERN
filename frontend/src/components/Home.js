@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import Metadata from "./layouts/MetaData";
 import { useEffect, useState } from "react";
-import { getProducts } from "../actions/productsActions";
+import { getProducts } from "../actions/productActions";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "./layouts/Loader";
 import Product from "./product/Product";
