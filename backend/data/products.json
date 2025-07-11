@@ -3,140 +3,120 @@
       "name": "Wireless Headphones",
       "price": 2999,
       "description": "Noise-cancelling over-ear headphones.",
-      "ratings": "4.5",
+      "ratings": 4,
       "images": [{ "image": "/images/products/1.jpg" },{ "image": "/images/products/2.jpg" }],
       "category": "Headphones",
       "seller": "SoundPro",
       "stock": 10,
       "numOfReviews": 25,
-      "reviews": [
-        { "name": "Alice", "rating": 5, "comment": "Excellent quality!" }
-      ]
+      "reviews": []
     },
     {
       "name": "Gaming Laptop",
       "price": 84999.66,
       "description": "High-performance laptop for gaming and work.",
-      "ratings": "4.8",
+      "ratings": 5,
       "images": [{ "image": "/images/products/2.jpg" }],
       "category": "Laptops",
       "seller": "TechBazaar",
       "stock": 5,
       "numOfReviews": 12,
-      "reviews": [
-        { "name": "Bob", "rating": 4, "comment": "Super fast, love it!" }
-      ]
+      "reviews": []
     },
     {
       "name": "Organic Almonds",
       "price": 499.88,
       "description": "Fresh organic almonds 500g pack.",
-      "ratings": "4.2",
+      "ratings": 3,
       "images": [{ "image": "/images/products/3.jpg" }],
       "category": "Food",
       "seller": "HealthyBites",
       "stock": 20,
       "numOfReviews": 8,
-      "reviews": [
-        { "name": "Cathy", "rating": 4, "comment": "Crunchy and fresh." }
-      ]
+      "reviews": []
     },
     {
       "name": "Face Moisturizer",
       "price": 899.89,
       "description": "Hydrating moisturizer for all skin types.",
-      "ratings": "4.6",
+      "ratings": 4,
       "images": [{ "image": "/images/products/4.jpg" }],
       "category": "Beauty/Health",
       "seller": "GlowCare",
       "stock": 15,
       "numOfReviews": 20,
-      "reviews": [
-        { "name": "Nina", "rating": 5, "comment": "My skin feels soft!" }
-      ]
+      "reviews": []
     },
     {
       "name": "Leather Shoes",
       "price": 2199.49,
       "description": "Genuine leather formal shoes.",
-      "ratings": "4.3",
+      "ratings": 5,
       "images": [{ "image": "/images/products/5.jpg" }],
       "category": "Clothes/Shoes",
       "seller": "UrbanStyle",
       "stock": 18,
       "numOfReviews": 14,
-      "reviews": [
-        { "name": "Arjun", "rating": 4, "comment": "Stylish and durable." }
-      ]
+      "reviews": []
     },
     {
       "name": "Smartphone - Galaxy Z",
       "price": 69999.99,
       "description": "Foldable smartphone with AMOLED display.",
-      "ratings": "4.7",
+      "ratings": 1,
       "images": [{ "image": "https://example.com/images/phone.jpg" }],
       "category": "Mobile Phones",
       "seller": "GadgetStore",
       "stock": 8,
       "numOfReviews": 30,
-      "reviews": [
-        { "name": "Deepa", "rating": 5, "comment": "Looks futuristic!" }
-      ]
+      "reviews": []
     },
     {
       "name": "Electric Kettle",
       "price": 1199.34,
       "description": "Fast-boiling stainless steel electric kettle.",
-      "ratings": "4.4",
+      "ratings": 2,
       "images": [{ "image": "https://example.com/images/kettle.jpg" }],
       "category": "Home",
       "seller": "KitchenPlus",
       "stock": 15,
       "numOfReviews": 16,
-      "reviews": [
-        { "name": "Kiran", "rating": 4, "comment": "Very handy product." }
-      ]
+      "reviews": []
     },
     {
       "name": "Cricket Bat",
       "price": 2599.78,
       "description": "English willow cricket bat for tournaments.",
-      "ratings": "4.5",
+      "ratings": 3,
       "images": [{ "image": "https://example.com/images/cricketbat.jpg" }],
       "category": "Sports",
       "seller": "CricketGear",
       "stock": 7,
       "numOfReviews": 10,
-      "reviews": [
-        { "name": "Ravi", "rating": 5, "comment": "Superb balance and grip." }
-      ]
+      "reviews": []
     },
     {
       "name": "Laptop Stand",
       "price": 799.57,
       "description": "Aluminum adjustable laptop stand.",
-      "ratings": "4.3",
+      "ratings": 3,
       "images": [{ "image": "https://example.com/images/laptopstand.jpg" }],
       "category": "Accessories",
       "seller": "OfficeWiz",
       "stock": 10,
       "numOfReviews": 5,
-      "reviews": [
-        { "name": "Sara", "rating": 4, "comment": "Good height adjustment." }
-      ]
+      "reviews": []
     },
     {
       "name": "Trekking Backpack",
       "price": 3499,
       "description": "60L waterproof trekking backpack.",
-      "ratings": "4.6",
+      "ratings": 4,
       "images": [{ "image": "https://example.com/images/backpack.jpg" }],
       "category": "Outdoor",
       "seller": "AdventureZone",
       "stock": 20,
       "numOfReviews": 22,
-      "reviews": [
-        { "name": "Manoj", "rating": 5, "comment": "Spacious and comfortable." }
-      ]
+      "reviews": []
     }
 ]

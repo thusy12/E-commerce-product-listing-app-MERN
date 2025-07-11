@@ -7,13 +7,26 @@ const qs = require('qs');
 //Get products = /api/v1/products
 exports.getProducts = async (req,res,next)=>{
     const parsedQuery = qs.parse(req._parsedUrl.query);
-    const resultsPerPage = 5;
-    const apiFeatures = new ApiFeatures(Product.find(), parsedQuery).search().filter().paginate(resultsPerPage);
-    const products = await apiFeatures.query;
+    const resultsPerPage = 4;
+
+    let buildQuery = () => {
+        return new ApiFeatures(Product.find(), parsedQuery).search().filter();
+    }
+
+    const filteredProductsCount = await buildQuery().query.countDocuments({});
+    const totalProductsCount = await Product.countDocuments({});
+    let productsCount = totalProductsCount;
+    
+    if(filteredProductsCount !== totalProductsCount){
+        productsCount = filteredProductsCount;
+    }
+
+    const products = await buildQuery().paginate(resultsPerPage).query;
     
     res.status(200).json({
         success:true,
-        count:products.length,
+        count:productsCount,
+        resultsPerPage,
         products
     })
 }
