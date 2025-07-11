@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import Metadata from "../layouts/MetaData";
 import { useEffect, useState } from "react";
-import { getProducts } from './../../actions/productsActions';
+import { getProducts } from '../../actions/productActions';
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../layouts/Loader";
 import Product from "./Product";
@@ -48,7 +48,7 @@ export default function ProductSearch(){
             position: "bottom-center",
           })
         }
-        dispatch(getProducts(keyword, price, category, rating, currentPage))
+        dispatch(getProducts(keyword, priceChanged, category, rating, currentPage))
     },[error, dispatch, currentPage, keyword, priceChanged, category, rating])
 
     return (
