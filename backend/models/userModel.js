@@ -23,8 +23,7 @@ const userSchema = new mongoose.Schema({
         select: false // This will not return the password in queries by default
     },
     avatar:{
-        type: String,
-        required: true
+        type: String
     },
     role: {
         type: String,
