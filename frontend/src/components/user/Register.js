@@ -12,6 +12,7 @@ export default function Register(){
     });
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("./images/default_avatar.jpg");
+    const [avatarName, setAvatarName] = useState("Choose Avatar");
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Register(){
                 }
             }
             reader.readAsDataURL(e.target.files[0]);
+            setAvatarName(e.target.files[0].name);
         }
         setUserData({...userData, [e.target.name]: e.target.value})
     }
@@ -125,7 +127,7 @@ export default function Register(){
                     id="customFile"
                   />
                   <label className="custom-file-label" htmlFor="customFile">
-                    Choose Avatar
+                    {avatarName}
                   </label>
                 </div>
               </div>
