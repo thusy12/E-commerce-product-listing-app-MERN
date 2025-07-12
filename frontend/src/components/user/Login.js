@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { clearAuthError, login } from './../../actions/userActions';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
     const [email, setEmail] = useState("");
@@ -77,9 +77,9 @@ export default function Login(){
                 LOGIN
               </button>
 
-              <a href="#" className="float-right mt-3">
+              <Link to={'/register'} href="#" className="float-right mt-3">
                 New User?
-              </a>
+              </Link>
             </form>
           </div>
         </div>
