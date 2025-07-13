@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import store from './store';
 import { loadUser } from './actions/userActions';
 import Profile from './components/user/Profile';
+import ProtectedRoute from './components/route/ProtectedRoute';
 
 function App() {
   useEffect(() => {
@@ -32,7 +33,7 @@ function App() {
               <Route path="/search/:keyword" element={<ProductSearch/>}></Route>
               <Route path="/login" element={<Login/>}></Route>
               <Route path="/register" element={<Register/>}></Route>
-              <Route path="/myprofile" element={<Profile/>}></Route>
+              <Route path="/myprofile" element={<ProtectedRoute><Profile/></ProtectedRoute>}></Route>
             </Routes>
           </div>
           <Footer />
