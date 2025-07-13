@@ -11,7 +11,10 @@ import {
     logoutSuccess, 
     registerFail, 
     registerRequest, 
-    registerSuccess 
+    registerSuccess, 
+    updateProfileFail, 
+    updateProfileRequest,
+    updateProfileSuccess
 } from "../slices/authSlice"
 
 export const login = (email, password) => async(dispatch) => {
@@ -63,5 +66,21 @@ export const logout = async(dispatch) => {
     } catch (error) {
         //handle error
         dispatch(logoutFail(error.response.data.message))
+    }
+}
+
+export const updateProfile = (userData) => async(dispatch) => {
+    try {
+        dispatch(updateProfileRequest())
+        const config = {
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        }
+        const {data} = await axios.post('/api/v1/profile/update', userData, config);
+        dispatch(updateProfileSuccess(data))
+    } catch (error) {
+        //handle error
+        dispatch(updateProfileFail(error.response.data.message))
     }
 }

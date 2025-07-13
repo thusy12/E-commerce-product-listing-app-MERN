@@ -91,6 +91,29 @@ const authSlice = createSlice({
                 ...state,
                 error:action.payload
             }
+        },
+        updateProfileRequest(state, action){
+            return{
+                ...state,//copy old state values
+                loading:true,
+                isUpdated:false
+            }
+        },
+        updateProfileSuccess(state, action){
+            return{
+                ...state,
+                loading:false,
+                user:action.payload.user,
+                isUpdated:true
+            }
+        },
+
+        updateProfileFail(state,action){
+            return{
+                ...state,
+                loading:false,
+                error:action.payload
+            }
         }
     }
 });
@@ -109,7 +132,10 @@ export const {
     loadUserSuccess,
     loadUserFail,
     logoutSuccess,
-    logoutFail
+    logoutFail,
+    updateProfileRequest,
+    updateProfileSuccess,
+    updateProfileFail
 } = actions;
 
 export default reducer;
