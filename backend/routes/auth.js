@@ -42,7 +42,7 @@ router.route('/password/forgot').post(forgotPassword);
 router.route('/password/reset/:token').post(resetPassword);
 router.route('/myprofile').get(isAuthenticatedUser, getUserProfile);
 router.route('/password/change').put(isAuthenticatedUser, changePassword);
-router.route('/profile/update').put(isAuthenticatedUser, updateProfile);
+router.route('/profile/update').put(isAuthenticatedUser, upload.single('avatar'), updateProfile);
 
 //Admin routes
 router.route('/admin/users').get(isAuthenticatedUser, authorizedRoles('admin','super admin'), getAllUsers);

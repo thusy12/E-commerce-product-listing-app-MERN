@@ -74,7 +74,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     await user.save({validateBeforeSave: false});
 
     // Create reset password URL
-    const resetUrl = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
     const message = `Your password reset token is as follows:\n\n${resetUrl}\n\nIf you have not requested this, please ignore this email.`;
 
     try {
@@ -98,7 +98,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     }
 })
 
-//Reset Password = /api/v1/password/reset/:id
+//Reset Password = /api/v1/password/reset/:token
 exports.resetPassword = catchAsyncError(async (req, res, next) => {
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
     const user = await User.findOne({ 
@@ -158,10 +158,16 @@ exports.getUserProfile = catchAsyncError(async(req,res,next)=>{
 
 //Update profile = /api/v1/profile/update
 exports.updateProfile = catchAsyncError(async (req, res, next) => {
-    const newUserData = {
+    let newUserData = {
         name: req.body.name,
         email: req.body.email,
     };
+
+    let avatar;
+    if (req.file) {
+        avatar = `${process.env.BACKEND_URL}/uploads/user/${req.file.originalname}`;
+        newUserData = {...newUserData, avatar};
+    }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
