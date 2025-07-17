@@ -30,12 +30,48 @@ const cartSlice = createSlice({
                 localStorage.setItem('cartItems', JSON.stringify(state.items));
             }
             return state;
+        },
+        increaseCartItemQty(state,action){
+            state.items = state.items.map(item => {
+                if(item.product === action.payload){
+                    item.quantity = item.quantity + 1;
+                }
+                return item;
+            })
+            localStorage.setItem('cartItems', JSON.stringify(state.items));
+        },
+        decreaseCartItemQty(state,action){
+            state.items = state.items.map(item => {
+                if(item.product === action.payload){
+                    item.quantity = item.quantity - 1;
+                }
+                return item;
+            })
+            localStorage.setItem('cartItems', JSON.stringify(state.items));
+        },
+        removeItemFromCart(state,action){
+            const filteredItems = state.items.filter(item => {
+                return item.product !== action.payload
+            });
+
+            localStorage.setItem('cartItems', JSON.stringify(filteredItems));
+
+            return{
+                ...state,
+                items:filteredItems
+            }
         }
     }
 })
 
 const {actions, reducer} = cartSlice;
 
-export const {addCartItemRequest, addCartItemSuccess} = actions;
+export const {
+    addCartItemRequest, 
+    addCartItemSuccess,
+    increaseCartItemQty,
+    decreaseCartItemQty,
+    removeItemFromCart
+} = actions;
 
 export default reducer;
