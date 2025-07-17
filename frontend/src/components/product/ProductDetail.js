@@ -5,6 +5,7 @@ import {getProduct} from "../../actions/productActions";
 import Loader from "../layouts/Loader";
 import {Carousel} from "react-bootstrap";
 import Metadata from "../layouts/MetaData";
+import { addCartItem } from "../../actions/cartActions";
 
 export default function ProductDetail() {
   const {product, loading}= useSelector((state)=>state.productState);
@@ -88,6 +89,9 @@ export default function ProductDetail() {
                 id="cart_btn"
                 className="btn btn-primary d-inline ml-4"
                 disabled={product.stock === 0 ? true : false}
+                onClick={()=>{
+                  dispatch(addCartItem(product._id, quantity))
+                }}
               >
                 Add to Cart
               </button>
