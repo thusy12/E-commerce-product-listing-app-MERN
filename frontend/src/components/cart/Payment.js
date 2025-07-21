@@ -7,6 +7,8 @@ import { CardNumberElement, CardExpiryElement, CardCvcElement } from "@stripe/re
 import axios from "axios";
 import { toast } from "react-toastify";
 import { orderCompleted } from "../../slices/cartSlice";
+import { createOrder } from './../../actions/orderActions';
+import { clearError as clearOrderError } from "../../slices/orderSlice";
 
 export default function Payment(){
     const stripe = useStripe();
@@ -16,6 +18,8 @@ export default function Payment(){
     const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
     const {user} = useSelector(state => state.authState);
     const {items:cartItems, shippingInfo} = useSelector(state => state.cartState);
+    const orderError = useSelector(state => state.orderState);
+
     const paymentData = orderInfo ? {
         amount: Math.round(orderInfo.totalPrice * 100),
         shipping: {
@@ -44,7 +48,17 @@ export default function Payment(){
 
     useEffect(() => {
         validateShipping(shippingInfo, navigate);
-    }, [navigate, shippingInfo]);
+        if (orderError) {
+            toast(orderError, {
+              position: "bottom-center",
+              type: "error",
+              onOpen: ()=>{
+                  dispatch(clearOrderError())
+              }
+            });
+            return;
+          }
+    }, [navigate, shippingInfo, orderError, dispatch]);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -74,7 +88,14 @@ export default function Payment(){
                         type: "success",
                         position: "bottom-center"
                     })
-                    dispatch(orderCompleted);
+
+                    order.paymentInfo = {
+                      id: result.paymentIntent.id,
+                      status: result.paymentIntent.status
+                    }
+
+                    dispatch(orderCompleted());
+                    await dispatch(createOrder(order));
                     navigate("/order/success");
                 }else{
                     toast('Please try again!', {
