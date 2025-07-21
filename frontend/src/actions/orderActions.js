@@ -1,4 +1,4 @@
-import { createOrderFail, createOrderRequest, createOrderSuccess, userOrderFail, userOrderRequest, userOrderSuccess } from "../slices/orderSlice";
+import { createOrderFail, createOrderRequest, createOrderSuccess, orderDetailFail, orderDetailRequest, orderDetailSuccess, userOrderFail, userOrderRequest, userOrderSuccess } from "../slices/orderSlice";
 import axios from "axios";
 
 export const createOrder = order => async(dispatch) => {
@@ -20,5 +20,16 @@ export const userOrders = async(dispatch) => {
     } catch (error) {
         //handle error
         dispatch(userOrderFail(error.response.data.message))
+    }
+}
+
+export const orderDetail = id => async(dispatch) => {
+    try {
+        dispatch(orderDetailRequest());
+        const {data} = await axios.get(`/api/v1/order/${id}`);
+        dispatch(orderDetailSuccess(data))
+    } catch (error) {
+        //handle error
+        dispatch(orderDetailFail(error.response.data.message))
     }
 }

@@ -17,7 +17,7 @@ const orderSlice = createSlice({
         createOrderSuccess(state,action){
             return{
                 ...state,
-                loading: true,
+                loading: false,
                 orderDetail: action.payload.order
             }
         },
@@ -43,11 +43,31 @@ const orderSlice = createSlice({
         userOrderSuccess(state,action){
             return{
                 ...state,
-                loading: true,
+                loading: false,
                 userOrders: action.payload.orders
             }
         },
         userOrderFail(state,action){
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
+        orderDetailRequest(state,action){
+            return{
+                ...state,
+                loading: true
+            }
+        },
+        orderDetailSuccess(state,action){
+            return{
+                ...state,
+                loading: false,
+                orderDetail: action.payload.order
+            }
+        },
+        orderDetailFail(state,action){
             return{
                 ...state,
                 loading: false,
@@ -66,7 +86,10 @@ export const {
     clearError,
     userOrderRequest,
     userOrderSuccess,
-    userOrderFail
+    userOrderFail,
+    orderDetailRequest,
+    orderDetailSuccess,
+    orderDetailFail
 } = actions;
 
 export default reducer;
