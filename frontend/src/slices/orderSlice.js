@@ -33,7 +33,27 @@ const orderSlice = createSlice({
                 ...state,
                 error: null
             }
-        }
+        },
+        userOrderRequest(state,action){
+            return{
+                ...state,
+                loading: true
+            }
+        },
+        userOrderSuccess(state,action){
+            return{
+                ...state,
+                loading: true,
+                userOrders: action.payload
+            }
+        },
+        userOrderFail(state,action){
+            return{
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        },
     }
 })
 
@@ -43,7 +63,10 @@ export const {
     createOrderRequest,
     createOrderSuccess,
     createOrderFail,
-    clearError
+    clearError,
+    userOrderRequest,
+    userOrderSuccess,
+    userOrderFail
 } = actions;
 
 export default reducer;
