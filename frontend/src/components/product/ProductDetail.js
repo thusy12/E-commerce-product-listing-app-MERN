@@ -8,7 +8,8 @@ import Metadata from "../layouts/MetaData";
 import { addCartItem } from "../../actions/cartActions";
 import {Modal} from "react-bootstrap";
 import { toast } from "react-toastify";
-import { clearError, clearReviewSubmitted } from "../../slices/productSlice";
+import { clearError, clearProduct, clearReviewSubmitted } from "../../slices/productSlice";
+import ProductReview from "./ProductReview";
 
 export default function ProductDetail() {
   const {product={}, loading, isReviewSubmitted, error}= useSelector((state)=>state.productState);
@@ -62,7 +63,6 @@ export default function ProductDetail() {
             dispatch(clearReviewSubmitted());
         }
       });
-      return;
     }
 
     if(error){
@@ -75,9 +75,13 @@ export default function ProductDetail() {
       });
       return;
     }
-    
+
     if(!product._id || isReviewSubmitted){
       dispatch(getProduct(id))
+    }
+
+    return () => {
+      dispatch(clearProduct());
     }
 
   },[dispatch, id, isReviewSubmitted, error])
@@ -218,6 +222,10 @@ export default function ProductDetail() {
               </div>
             </div>
           </div>
+          {
+          product.reviews && product.reviews.length > 0 ?
+          <ProductReview reviews={product.reviews} /> : null
+          }
         </Fragment>
       )}
     </Fragment>
