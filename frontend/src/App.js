@@ -70,7 +70,7 @@ function App() {
             </Routes>
           </div>
           <Routes>
-            <Route path="/admin/dashboard" element={<Dashboard/>}></Route>
+            <Route path="/admin/dashboard" element={<ProtectedRoute isAdmin={true}><Dashboard/></ProtectedRoute>}></Route>
           </Routes>
           <Footer />
         </HelmetProvider>
