@@ -17,20 +17,20 @@ const router = express.Router();
 const { isAuthenticatedUser, authorizedRoles } = require('../middlewares/authenticate');
 const multer = require('multer');
 const path = require('path');
-const getFormattedTimestamp = require("../utils/timestamp");
+const fs = require('fs');
+
+// Create the uploads directory if it doesn't exist
+const uploadDir = path.join(__dirname, '..', 'uploads', 'user');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 const upload = multer({storage:multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname,'..','uploads/user'))
+        cb(null, uploadDir)
     },
     filename: function (req, file, cb) {
-      // cb(null, file.originalname)
-
-      const ext = path.extname(file.originalname); // Get file extension
-      const baseName = path.basename(file.originalname, ext); // Get file name without extension
-      const timestamp = getFormattedTimestamp();
-      const finalName = `${baseName}-${timestamp}${ext}`; // New file name
-      cb(null, finalName);
+      cb(null, file.originalname);
     },
   }),
 });
