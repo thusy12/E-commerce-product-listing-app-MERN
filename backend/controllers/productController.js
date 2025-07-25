@@ -33,6 +33,16 @@ exports.getProducts = async (req,res,next)=>{
 
 //Create new product = /api/v1/admin/product/new
 exports.newProduct = catchAsyncError(async (req,res,next)=>{
+    let images = [];
+
+    if (req.files && req.files.length > 0) {
+        images = req.files.map(file => {
+            return { image: `${process.env.BACKEND_URL}/uploads/product/${file.originalname}` };
+        });
+    }
+
+    req.body.images = images;
+
     req.body.user = req.user.id; // Adding user to the product schema
     const product = await Product.create(req.body);
     res.status(201).json({
