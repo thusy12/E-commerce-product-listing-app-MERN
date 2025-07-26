@@ -175,7 +175,7 @@ exports.createReview = catchAsyncError(async (req, res, next) => {
 
 //Get reviews = /api/v1/reviews?id={productId}
 exports.getReviews = catchAsyncError(async(req, res, next) =>{
-    const product = await Product.findById(req.query.id);
+    const product = await Product.findById(req.query.id).populate('reviews.user', 'name email');
 
     if(!product){
         return next(new ErrorHandler("Product not found", 404));
