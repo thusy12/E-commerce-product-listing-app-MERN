@@ -100,7 +100,7 @@ export default function Cart() {
                   </p>
                   <p>
                     Est. total:{" "}
-                    <span className="order-summary-values">${items.reduce((acc, item) => (acc + item.quantity * item.price),0)}</span>
+                    <span className="order-summary-values">${items.reduce((acc, item) => (acc + item.quantity * item.price),0).toFixed(2)}</span>
                   </p>
 
                   <hr />
