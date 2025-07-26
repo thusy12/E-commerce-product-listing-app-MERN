@@ -87,7 +87,7 @@ export default function NewProduct(){
         position: "bottom-center",
         type: error,
         onOpen: () => {
-          dispatch(clearError);
+          dispatch(clearError());
         },
       });
       return;
@@ -133,7 +133,7 @@ export default function NewProduct(){
                   <textarea
                     className="form-control"
                     id="description_field"
-                    rows="8"
+                    rows="4"
                     onChange={e => setDescription(e.target.value)}
                     value={description}
                   ></textarea>

@@ -68,6 +68,23 @@ exports.getSingleProduct = async (req,res,next)=>{
 exports.updateProduct = async (req,res,next)=>{
     let product = await Product.findById(req.params.id);
 
+    //uploading images
+    let images = [];
+
+    //if images not cleared keep existing images
+    if(req.body.imagesCleared === 'false'){
+        images = product.images;
+    }
+
+    if (req.files && req.files.length > 0) {
+        const newImages = req.files.map(file => {
+            return { image: `${process.env.BACKEND_URL}/uploads/product/${file.originalname}` };
+        });
+        images = [...images, ...newImages];
+    }
+
+    req.body.images = images;
+
     if(!product){
         return res.status(404).json({
             success:false,
@@ -87,7 +104,7 @@ exports.updateProduct = async (req,res,next)=>{
     })
 }
 
-//Delete product = /api/v1/product/:id
+//Delete product = /api/v1/admin/product/:id
 exports.deleteProduct = async (req,res,next)=>{
     const product = await Product.findById(req.params.id);
 
