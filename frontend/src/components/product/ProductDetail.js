@@ -141,6 +141,10 @@ export default function ProductDetail() {
                 disabled={product.stock === 0 ? true : false}
                 onClick={()=>{
                   dispatch(addCartItem(product._id, quantity))
+                  toast('Cart Item Added successfully', {
+                    type: "success",
+                    position: "bottom-center"
+                  });
                 }}
               >
                 Add to Cart
