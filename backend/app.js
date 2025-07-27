@@ -21,6 +21,24 @@ app.use('/api/v1/', auth);
 app.use('/api/v1/', order);
 app.use('/api/v1/', payment);
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+    const indexPath = path.join(__dirname, '../frontend/build/index.html');
+    app.use((req, res, next) => {
+        if (req.method === 'GET' && !req.path.startsWith('/api/v1')) {
+            res.sendFile(indexPath, (err) => {
+                if (err) {
+                    console.error("Failed to serve index.html:", err);
+                    next(err);
+                }
+            });
+        } else {
+            next();
+        }
+    });
+}
+
 app.use(errorMiddleware);
 
 module.exports = app;
