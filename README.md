@@ -98,7 +98,7 @@ npm install
 
 3. **Set up environment variables**
 
-Create a `config.env` file inside the backend/config/ folder with the following variables:
+Create a `config.env` file inside the `backend/config/` folder with the following variables:
 
 ```bash
 PORT = 8000
