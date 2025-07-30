@@ -35,9 +35,14 @@ exports.getProducts = async (req,res,next)=>{
 exports.newProduct = catchAsyncError(async (req,res,next)=>{
     let images = [];
 
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === "production") {
+        BASE_URL = `${req.protocol}://${req.get("host")}`;
+    }
+
     if (req.files && req.files.length > 0) {
         images = req.files.map(file => {
-            return { image: `${process.env.BACKEND_URL}/uploads/product/${file.originalname}` };
+            return { image: `${BASE_URL}/uploads/product/${file.originalname}` };
         });
     }
 
@@ -76,9 +81,14 @@ exports.updateProduct = async (req,res,next)=>{
         images = product.images;
     }
 
+    let BASE_URL = process.env.BACKEND_URL;
+    if (process.env.NODE_ENV === "production") {
+        BASE_URL = `${req.protocol}://${req.get("host")}`;
+    }
+
     if (req.files && req.files.length > 0) {
         const newImages = req.files.map(file => {
-            return { image: `${process.env.BACKEND_URL}/uploads/product/${file.originalname}` };
+            return { image: `${BASE_URL}/uploads/product/${file.originalname}` };
         });
         images = [...images, ...newImages];
     }
